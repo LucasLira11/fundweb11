@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cardápio Eletrônico</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .menu-item { cursor: pointer; padding: 10px; border-bottom: 1px solid #ddd; }
+        .menu-item:hover { background-color: #f0f0f0; }
+        #pedidos, #total { margin-top: 20px; }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background: white;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+
+        .menu-item {
+            cursor: pointer;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            background: white;
+            transition: background 0.3s ease;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .menu-item:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #pedidos, #total {
+            margin-top: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Cardápio - Laboratório de Storage, DOM e Ajax</h1>
+    <div id="menu"></div>
+    <div id="pedidos">
+        <h2>Pedidos</h2>
+        <ul id="listaPedidos"></ul>
+    </div>
+    <div id="total">Total - 0</div>
+
+    <script>
+        const itensMenu = [
+            'Capuccino', 'Espresso', 'Frapuccino', 'Chococcino', 
+            'Chocolate Quente', 'Frapê', 'Suco de Laranja', 'Açaí', 'Bolo de Laranja'
+        ];
+
+        const precos = {
+            'Capuccino': 5.50, 'Espresso': 3.00, 'Frapuccino': 7.00, 
+            'Chococcino': 6.00, 'Chocolate Quente': 4.50, 'Frapê': 6.50, 
+            'Suco de Laranja': 4.00, 'Açaí': 8.00, 'Bolo de Laranja': 5.00
+        };
+
+        const pedidos = [];
+        let total = 0;
+
+        function carregarMenu() {
+            const menuDiv = document.getElementById('menu');
+            itensMenu.forEach(item => {
+                const div = document.createElement('div');
+                div.textContent = `${item} - R$ ${precos[item].toFixed(2)}`;
+                div.classList.add('menu-item');
+                div.onclick = () => adicionarPedido(item);
+                menuDiv.appendChild(div);
+            });
+        }
+
+        function adicionarPedido(item) {
+            pedidos.push(item);
+            atualizarPedidos();
+        }
+
+        function atualizarPedidos() {
+            const listaPedidos = document.getElementById('listaPedidos');
+            const totalDiv = document.getElementById('total');
+            
+            listaPedidos.innerHTML = '';
+            total = 0;
+
+            pedidos.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item} - R$ ${precos[item].toFixed(2)}`;
+                listaPedidos.appendChild(li);
+                total += precos[item];
+            });
+
+            totalDiv.textContent = `Total - R$ ${total.toFixed(2)}`;
+        }
+
+        carregarMenu();
+    </script>
+</body>
+<footer>
+    <p>&copy; 2025 Lucas Pontes Lira. All rights reserved.</p>
+    <p>Made by Lucas Pontes Lira</p>
+</footer>
+</html>
